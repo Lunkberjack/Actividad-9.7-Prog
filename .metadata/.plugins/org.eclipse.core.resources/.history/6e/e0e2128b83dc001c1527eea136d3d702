@@ -1,0 +1,18 @@
+package main;
+/**
+ * 
+ * @author lucia
+ *
+ */
+public class TestMetodos {
+	public static void main(String[] args) {
+		DatabaseConnection databaseConnection = new DatabaseConnection();
+		if(databaseConnection.conectar("jdbc:mysql://127.0.0.1:3307/tiendacoches?user=tiendacoches&password=tiendacoches")) {			
+			MetodosSQL metodos = new MetodosSQL(databaseConnection.getConexion());
+			// metodos.aniadirFabricante(7, "Subaru");
+			// metodos.aniadirCoche(7, "Forester", 20000, 2020, 4000, 7);
+			// metodos.eliminarRegistro("fabricante", "id", 7);
+			metodos.eliminarRegistro("coche", "modelo", "forester");
+		}
+	}
+}

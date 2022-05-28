@@ -1,0 +1,17 @@
+package main;
+
+/**
+ * 
+ * @author lucia
+ *
+ */
+public class PruebaLibreria {
+	public static void main(String[] args) {
+		DatabaseConnection conexion = new DatabaseConnection();
+		conexion.conectar("jdbc:mysql://127.0.0.1:3307/tiendacoches?user=tiendacoches&password=tiendacoches");
+		MetodosSQL metodos = new MetodosSQL(conexion.getConexion());
+		
+		metodos.mostrarRegistrosSinFiltro("coche", "id", "DESC");
+		
+	}
+}

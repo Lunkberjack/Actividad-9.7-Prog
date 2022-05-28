@@ -1,0 +1,8 @@
+INDEX VERSION 1.131+/home/lucia/pruebaLogger/.metadata/.plugins/org.eclipse.jdt.core
+1557354118.index
+1974900979.index
+1865797976.index
+887466736.index
+3524308872.index
+646308851.index
+3498201241.index

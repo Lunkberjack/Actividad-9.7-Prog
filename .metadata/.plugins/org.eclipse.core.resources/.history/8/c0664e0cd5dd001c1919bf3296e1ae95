@@ -1,0 +1,237 @@
+package main;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+/**
+ * Métodos para manipular una base de datos relacional
+ * mySQL.
+ * @author LuciaLM
+ * @version 1.0
+ */
+public class MetodosSQL {
+	private Connection connection=null;
+	private Statement statement=null;
+	private boolean drugsUpdated=false;
+	/**
+	 * Constructor especializado en inicializar objetos
+	 * de tipo DatabaseManager a partir de un objeto de conexión
+	 * que no puede ser nulo.
+	 * @param connection - Objeto de conexión
+	 */
+	public MetodosSQL(Connection connection) {
+		this.connection = connection;
+		try {
+			this.statement = connection.createStatement();
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		}
+	}
+	public boolean aniadirFabricante(int idPar, String nombrePar) {
+		boolean aniadido = false;
+		try {
+			this.statement.execute("INSERT INTO fabricante (id,nombre) VALUES(" +"\"" +
+					idPar +"\"" + "," + "\"" + nombrePar + "\"" + ")");
+			return aniadido;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return aniadido;
+		}
+	}
+	public boolean aniadirCoche(int id, String modelo, double precio, int anio, int km, int codigoFab) {
+		boolean aniadido = false;
+		try {
+			this.statement.executeUpdate("INSERT INTO coche (id, modelo, precio, año, km, codigo_fabricante) VALUES(" 
+					+ id + "," + "\"" + modelo + "\"" + "," + precio + "," + anio + "," + km + "," + codigoFab + ")");
+			return aniadido;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return aniadido;
+		}
+	}
+	/**
+	 * Elimina un registro de la una tabla pasando tanto la tabla como el campo como la condición.
+	 * @param tabla
+	 * @param campo
+	 * @param condicion
+	 * @return
+	 */
+	public boolean eliminarRegistro(String tabla, String campo, String condicion) {
+		boolean eliminado = false;
+		try {
+			this.statement.executeUpdate("DELETE FROM " + tabla + " WHERE " + tabla + "." +
+					campo + "=\"" + condicion + "\"" + ";"); 
+			return eliminado;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return eliminado;
+		}
+	}
+	/**
+	 * Elimina un registro de la una tabla pasando tanto la tabla como el campo como la condición.
+	 * @param tabla
+	 * @param campo
+	 * @param condicion
+	 * @return
+	 */
+	public boolean eliminarRegistro(String tabla, String campo, int condicion) {
+		boolean eliminado = false;
+		try {
+			this.statement.executeUpdate("DELETE FROM " + tabla + " WHERE " + tabla + "." + campo +
+					"=" + condicion + ";"); 
+			return eliminado;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return eliminado;
+		}
+	}
+	
+	/**
+	 * Modifica un registro tomando varios parámetros para saber en qué 
+	 * tabla se debe modificar y la condición que se debe cumplir.
+	 * 
+	 * @param tabla
+	 * @param campoModificar - campo que se quiere modificar
+	 * @param valorModificar - valor que se quiere dar a ese campo
+	 * @param campoCondicion - campo en el que buscar la condicion
+	 * @param condicion - condicion que se debe cumplir
+	 * @return
+	 */
+	public boolean modificarRegistro(String tabla, String campoModificar, int valorModificar,
+			String campoCondicion, String condicion) {
+		boolean modificado = false;
+		try {
+			this.statement.executeUpdate("UPDATE " + tabla + " SET " + campoModificar + "=" + 
+					valorModificar + " WHERE " + campoCondicion + "=\"" + condicion + "\"" + ";"); 
+			return modificado;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return modificado;
+		}
+	}
+	/**
+	 * Modifica un registro tomando varios parámetros para saber en qué 
+	 * tabla se debe modificar y la condición que se debe cumplir.
+	 * 
+	 * @param tabla
+	 * @param campoModificar - campo que se quiere modificar
+	 * @param valorModificar - valor que se quiere dar a ese campo
+	 * @param campoCondicion - campo en el que buscar la condicion
+	 * @param condicion - condicion que se debe cumplir
+	 * @return
+	 */
+	public boolean modificarRegistro(String tabla, String campoModificar, int valorModificar,
+			String campoCondicion, int condicion) {
+		boolean modificado = false;
+		try {
+			this.statement.executeUpdate("UPDATE " + tabla + " SET " + campoModificar + "=" + 
+					valorModificar + " WHERE " + campoCondicion + "=" + condicion + ";"); 
+			return modificado;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return modificado;
+		}
+	}
+	/**
+	 * Modifica un registro tomando varios parámetros para saber en qué 
+	 * tabla se debe modificar y la condición que se debe cumplir.
+	 * 
+	 * @param tabla
+	 * @param campoModificar - campo que se quiere modificar
+	 * @param valorModificar - valor que se quiere dar a ese campo
+	 * @param campoCondicion - campo en el que buscar la condicion
+	 * @param condicion - condicion que se debe cumplir
+	 * @return
+	 */
+	public boolean modificarRegistro(String tabla, String campoModificar, String valorModificar,
+			String campoCondicion, int condicion) {
+		boolean modificado = false;
+		try {
+			this.statement.executeUpdate("UPDATE " + tabla + " SET " + campoModificar + "=\"" + 
+					valorModificar + "\"" + " WHERE " + campoCondicion + "=" + condicion + ";"); 
+			return modificado;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return modificado;
+		}
+	}
+	/**
+	 * Modifica un registro tomando varios parámetros para saber en qué 
+	 * tabla se debe modificar y la condición que se debe cumplir.
+	 * 
+	 * @param tabla
+	 * @param campoModificar - campo que se quiere modificar
+	 * @param valorModificar - valor que se quiere dar a ese campo
+	 * @param campoCondicion - campo en el que buscar la condicion
+	 * @param condicion - condicion que se debe cumplir
+	 * @return
+	 */
+	public boolean modificarRegistro(String tabla, String campoModificar, String valorModificar,
+			String campoCondicion, String condicion) {
+		boolean modificado = false;
+		try {
+			this.statement.executeUpdate("UPDATE " + tabla + " SET " + campoModificar + "=\"" + 
+					valorModificar + "\"" + " WHERE " + campoCondicion + "=\"" + condicion + "\"" + ";"); 
+			return modificado;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return modificado;
+		}
+	}
+	/**
+	 * Seleccionar todos los registros ordenados por el campo y el orden deseado.
+	 * @param tabla
+	 * @param campo 
+	 * @param orden - asc o desc
+	 */
+	public void mostrarRegistrosSinFiltro(String tabla, String campo, String orden) {
+		try {
+			ResultSet setResultado = statement.executeQuery("SELECT * FROM " + tabla + " ORDER BY " + campo + " " + orden +";");
+			if(tabla.equalsIgnoreCase("coche")) {
+				while(setResultado.next()) {
+					System.out.print(setResultado.getInt(1) + ", " + setResultado.getString(2));
+					System.out.print(", " + setResultado.getInt(3) + ", " + setResultado.getInt(4));
+					System.out.println(", " + setResultado.getInt(5) + ", " + setResultado.getInt(6));
+				}
+			} else if(tabla.equalsIgnoreCase("fabricante")) {
+				while(setResultado.next()) {
+					System.out.println(setResultado.getInt(1) + ". " + setResultado.getString(2));
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Muestra registros de una tabla filtrando por campos.
+	 * Introducir la tabla, los campos (si son varios, separados por una coma, ej: "id, modelo"),
+	 * el campo o campos por los que se quiere ordenar y el orden (asc o desc).
+	 * @param tabla
+	 * @param campos
+	 * @param campoOrdenar
+	 * @param orden
+	 */
+	public void mostrarRegistrosFiltrando(String tabla, String campo, String filtro, String campoOrdenar, String orden) {
+		try {
+			// SELECT * FROM coche WHERE modelo = "Prius" ORDER BY "id" ASC; 
+			PreparedStatement ps = this.connection.prepareStatement("SELECT * FROM ? WHERE ? = ? ORDER BY ? ?;");
+			ps.setString(1, tabla);
+			ps.setString(2, campo);
+			ps.setString(3, filtro);
+			ps.setString(4, campoOrdenar);
+			ps.setString(5, orden);
+			ResultSet rs = ps.executeQuery();
+			// Se borran los parámetros
+			ps.clearParameters();
+				while(rs.next()) {
+					System.out.println(rs.getObject(campo));
+					// System.out.print(", " + setResultado.getInt(3) + ", " + setResultado.getInt(4));
+					// System.out.println(", " + setResultado.getInt(5) + ", " + setResultado.getInt(6));
+				}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+}

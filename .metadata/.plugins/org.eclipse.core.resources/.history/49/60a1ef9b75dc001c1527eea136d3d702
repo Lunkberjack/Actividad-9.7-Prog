@@ -1,0 +1,9 @@
+package main;
+/**
+ * 
+ * @author LuciaLM
+ * @version 1.0
+ */
+public class DatabaseConnection {
+	
+}
